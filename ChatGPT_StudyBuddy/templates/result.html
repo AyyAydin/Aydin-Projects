@@ -1,23 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Your Study Summary</title>
+    <meta charset="UTF-8">
+    <title>Study Summary</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-
-<div class="container">
-    <h1>📘 Summary</h1>
-
-    <h3>Your Notes:</h3>
-    <div class="card">{{ text }}</div>
-
-    <h3>AI Summary:</h3>
-    <div class="summary">{{ result | safe }}</div>
-
-    <a href="/" class="back-link">← Back</a>
-    <a href="/history" class="history-link">View History</a>
+<div class="top-bar">
+    <div class="logo">📘 Study Buddy</div>
+    <div class="top-actions">
+        <a href="/" class="link-button">🏠 Home</a>
+        <a href="/history" class="link-button">📚 History</a>
+        <button id="theme-toggle" class="link-button">🌙 Dark Mode</button>
+    </div>
 </div>
 
+<div class="container">
+    {% if topic %}
+        <h1>{{ topic }}</h1>
+    {% else %}
+        <h1>Study Summary</h1>
+    {% endif %}
+
+    <h3>Your Notes</h3>
+    <div class="card notes-card">
+        {{ text }}
+    </div>
+
+    <div class="summary-header">
+        <h3>AI Summary & Quiz</h3>
+        {% if audio_url %}
+        <div class="audio-container">
+            <span>🔊 Listen:</span>
+            <audio controls>
+                <source src="{{ audio_url }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="summary">
+        {{ result | safe }}
+    </div>
+
+    <div class="bottom-links">
+        <a href="/" class="back-link">← Back</a>
+        <a href="/history" class="history-link">📚 View History</a>
+    </div>
+</div>
+
+<script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    const storedTheme = localStorage.getItem('theme') || 'light';
+    root.setAttribute('data-theme', storedTheme);
+    toggleBtn.textContent = storedTheme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+
+    toggleBtn.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        toggleBtn.textContent = next === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
+</script>
 </body>
 </html>

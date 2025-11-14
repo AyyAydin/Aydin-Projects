@@ -1,27 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Study History</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+<div class="top-bar">
+    <div class="logo">📘 Study Buddy</div>
+    <div class="top-actions">
+        <a href="/" class="link-button">🏠 Home</a>
+        <button id="theme-toggle" class="link-button">🌙 Dark Mode</button>
+    </div>
+</div>
 
 <div class="container">
-    <h1>📚 Study History</h1>
+    <h1>Study History</h1>
 
-    {% for prompt, response in history %}
-    <div class="history-item">
-        <h3>Your Notes:</h3>
-        <div class="card">{{ prompt }}</div>
+    <form method="GET" class="search-bar">
+        <input type="text" name="q" placeholder="Search by topic or text..." value="{{ query }}">
+        <button type="submit" class="secondary-button">Search</button>
+    </form>
 
-        <h3>AI Summary:</h3>
-        <div class="summary">{{ response | safe }}</div>
-    </div>
-    <hr>
-    {% endfor %}
+    <form action="/clear_history" method="POST" onsubmit="return confirm('Clear all history?');">
+        <button class="danger-button">🗑 Clear History</button>
+    </form>
+
+    {% if history %}
+        {% for item in history %}
+        <div class="history-item">
+            {% if item.topic %}
+                <div class="topic-tag">{{ item.topic }}</div>
+            {% endif %}
+
+            <h3>Your Notes</h3>
+            <div class="card">{{ item.prompt }}</div>
+
+            <h3>AI Summary & Quiz</h3>
+            <div class="summary">{{ item.html | safe }}</div>
+        </div>
+        <hr>
+        {% endfor %}
+    {% else %}
+        <p>No history yet. Generate a summary from the home page!</p>
+    {% endif %}
 
     <a href="/" class="back-link">← Back</a>
 </div>
 
+<script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    const storedTheme = localStorage.getItem('theme') || 'light';
+    root.setAttribute('data-theme', storedTheme);
+    toggleBtn.textContent = storedTheme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+
+    toggleBtn.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        toggleBtn.textContent = next === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
+</script>
 </body>
 </html>

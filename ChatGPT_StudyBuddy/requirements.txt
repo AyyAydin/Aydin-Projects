@@ -1,4 +1,6 @@
 flask
 openai
-python-dotenv
 markdown
+python-dotenv
+PyPDF2
+gTTS

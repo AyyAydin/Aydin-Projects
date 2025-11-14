@@ -1,23 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>ChatGPT Study Buddy</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-
-<div class="container">
-    <h1>📘 ChatGPT Study Buddy</h1>
-    <p class="subtitle">Paste your notes and get a clear summary + quiz.</p>
-
-    <form method="POST">
-        <textarea name="text" placeholder="Paste notes or lecture content here..." required></textarea>
-
-        <button type="submit">Generate Summary</button>
-    </form>
-
-    <a href="/history" class="history-link">View Past Sessions</a>
+<div class="top-bar">
+    <div class="logo">📘 Study Buddy</div>
+    <div class="top-actions">
+        <a href="/history" class="link-button">📚 History</a>
+        <button id="theme-toggle" class="link-button">🌙 Dark Mode</button>
+    </div>
 </div>
 
+<div class="container">
+    <h1>ChatGPT Study Buddy</h1>
+    <p class="subtitle">Paste your notes or upload a PDF to get a clean summary and quiz.</p>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data" class="main-form">
+        <label class="label">Your notes:</label>
+        <textarea name="text" placeholder="Paste lecture notes, textbook content, or study material here..."></textarea>
+
+        <label class="label">Or upload a PDF:</label>
+        <input type="file" name="file" accept=".pdf">
+
+        <button type="submit" class="primary-button">Generate Summary & Quiz</button>
+    </form>
+</div>
+
+<script>
+    // Dark mode toggle
+    const toggleBtn = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    const storedTheme = localStorage.getItem('theme') || 'light';
+    root.setAttribute('data-theme', storedTheme);
+    toggleBtn.textContent = storedTheme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+
+    toggleBtn.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        toggleBtn.textContent = next === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
+</script>
 </body>
 </html>
