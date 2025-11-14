@@ -1,0 +1,10 @@
+ticker,company,last_price,sector,industry
+AAPL,Apple Inc.,272.95,Technology,Consumer Electronics
+MSFT,Microsoft Corporation,503.29,Technology,Software - Infrastructure
+NVDA,NVIDIA Corporation,186.86,Technology,Semiconductors
+AMZN,"Amazon.com, Inc.",237.58,Consumer Cyclical,Internet Retail
+GOOG,Alphabet Inc.,279.12,Communication Services,Internet Content & Information
+META,"Meta Platforms, Inc.",609.89,Communication Services,Internet Content & Information
+JPM,JP Morgan Chase & Co.,309.48,Financial Services,Banks - Diversified
+BAC,Bank of America Corporation,52.87,Financial Services,Banks - Diversified
+NFLX,"Netflix, Inc.",1154.23,Communication Services,Entertainment
