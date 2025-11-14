@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Study Summary</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>📘 Summary</h1>
+
+    <h3>Your Notes:</h3>
+    <div class="card">{{ text }}</div>
+
+    <h3>AI Summary:</h3>
+    <div class="summary">{{ result | safe }}</div>
+
+    <a href="/" class="back-link">← Back</a>
+    <a href="/history" class="history-link">View History</a>
+</div>
+
+</body>
+</html>

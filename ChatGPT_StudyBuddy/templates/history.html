@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Study History</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>📚 Study History</h1>
+
+    {% for prompt, response in history %}
+    <div class="history-item">
+        <h3>Your Notes:</h3>
+        <div class="card">{{ prompt }}</div>
+
+        <h3>AI Summary:</h3>
+        <div class="summary">{{ response | safe }}</div>
+    </div>
+    <hr>
+    {% endfor %}
+
+    <a href="/" class="back-link">← Back</a>
+</div>
+
+</body>
+</html>
