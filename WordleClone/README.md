@@ -39,6 +39,3 @@ Technologies Used
 - Tkinter  
 - File I/O  
 ---
-
-## 👨‍💻 Author
-**Aydin Chowdhury**
